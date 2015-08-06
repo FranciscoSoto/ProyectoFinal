@@ -1,11 +1,14 @@
 #ifndef __OPENGL_IMPLEMENT_H__
 #define __OPENGL_IMPLEMENT_H__
 #include "Config.h"
+
 #ifdef _WIN32
 #include "SDL_opengl.h"
 #else
 #include "SDL_opengles2.h"
+#include <openGl.h>
 #endif
+
 #include "SDL.h"
 #include <stdio.h>
 #include <string>

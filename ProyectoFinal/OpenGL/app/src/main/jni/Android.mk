@@ -21,7 +21,7 @@ LOCAL_CFLAGS := -std=ctt11
 LOCAL_MODULE    := nativeegl
 LOCAL_CFLAGS    := -Wall
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include
-LOCAL_SRC_FILES := jniapi.cpp renderer.cpp Game.cpp main.cpp Nave.cpp OpegGLImplement Sprite.cpp SpriteDef.cpp Stage.cpp
+LOCAL_SRC_FILES := jniapi.cpp renderer.cpp Game.cpp main.cpp Nave.cpp OpegGLImplement.cpp Sprite.cpp SpriteDef.cpp Stage.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv1_CM
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 
