@@ -2,10 +2,8 @@
 #include "Nave.h"
 #include "Stage.h"
 #include "Config.h"
-#ifdef _WIN32
 #include "SDL_opengl.h"
 #include "OpegGLImplement.h"
-#else
 
 
 class CGame

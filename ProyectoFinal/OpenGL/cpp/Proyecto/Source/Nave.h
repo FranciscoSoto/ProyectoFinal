@@ -2,10 +2,7 @@
 #define __NAVE_H__
 #include "Sprite.h"
 #include "Config.h"
-#ifdef _WIN32
 #include "SDL_opengl.h"
-#else
-
 
 class Nave
 {

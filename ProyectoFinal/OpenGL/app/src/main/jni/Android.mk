@@ -17,6 +17,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 SDL_PATH := ..\sdl2
 
+LOCAL_CFLAGS := -std=ctt11
 LOCAL_MODULE    := nativeegl
 LOCAL_CFLAGS    := -Wall
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include

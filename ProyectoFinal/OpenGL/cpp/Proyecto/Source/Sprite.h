@@ -4,11 +4,7 @@
 #include "SpriteDeF.h"
 #include "OpegGLImplement.h"
 #include "Config.h"
-#ifdef _WIN32
 #include "SDL_opengl.h"
-#else
-#include "SDL_opengles2.h"
-#endif
 
 class Sprite{
 	int w;

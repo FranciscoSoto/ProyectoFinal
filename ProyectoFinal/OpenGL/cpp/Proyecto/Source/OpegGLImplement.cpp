@@ -9,7 +9,6 @@ void OpenGlImplement::setSDLWindow(SDL_Window *window){
 
 void OpenGlImplement::InitGL()
 {
-#ifdef _WIN32
 	glCreateProgram = (PFNGLCREATEPROGRAMPROC)wglGetProcAddress("glCreateProgram");
 	glAttachShader = (PFNGLATTACHSHADERPROC)SDL_GL_GetProcAddress("glAttachShader");
 	glLinkProgram = (PFNGLLINKPROGRAMPROC)SDL_GL_GetProcAddress("glLinkProgram");
