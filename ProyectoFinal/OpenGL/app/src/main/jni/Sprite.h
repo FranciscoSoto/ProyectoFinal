@@ -4,6 +4,7 @@
 #include "SpriteDeF.h"
 #include "OpegGLImplement.h"
 #include "Config.h"
+#include <stdlib.h>
 #ifdef _WIN32
 #include "SDL_opengl.h"
 #else
