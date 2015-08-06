@@ -149,6 +149,8 @@ GLfloat OpenGlImplement::ConvertCOORDInvf(GLfloat x){
 /* The main drawing function. */
 void  OpenGlImplement::Draw(GLuint* vertexBufferObject, GLuint* indexBufferObject, GLuint* textureBufferObject, GLuint textureObject, GLfloat translate_x, GLfloat translate_y, GLfloat translate_z, GLfloat rotate_x, GLfloat rotate_y, GLfloat rotate_z, GLfloat scale_x, GLfloat scale_y, GLfloat scale_z, GLuint size)
 {
+
+   /*
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(ConvertCOORDf(translate_x), -ConvertCOORDf(translate_y), translate_z);
@@ -185,7 +187,7 @@ void  OpenGlImplement::Draw(GLuint* vertexBufferObject, GLuint* indexBufferObjec
 	
 	//Unbind program
 	glUseProgram(NULL);
-	
+	*/
 }
 
 void OpenGlImplement::DrawEnd()
