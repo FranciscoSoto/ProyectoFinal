@@ -4,7 +4,7 @@
 #include "Config.h"
 #ifdef _WIN32
 #include "SDL_opengl.h"
-#else
+#endif
 
 
 class Nave

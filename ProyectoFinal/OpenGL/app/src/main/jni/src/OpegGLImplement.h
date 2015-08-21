@@ -6,7 +6,7 @@
 #include "SDL_opengl.h"
 #else
 #include "SDL_opengles2.h"
-#include <openGl.h>
+#include "freeglut/freeglut.h"
 #endif
 
 #include "SDL.h"
@@ -16,6 +16,7 @@
 
 class OpenGlImplement
 {
+#ifdef __windows__
 	PFNGLCREATEPROGRAMPROC glCreateProgram;
 	PFNGLATTACHSHADERPROC glAttachShader;
 	PFNGLLINKPROGRAMPROC glLinkProgram;
@@ -40,6 +41,7 @@ class OpenGlImplement
 	PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
 	PFNGLACTIVETEXTUREPROC glActiveTexture;
 	PFNGLUNIFORM1IPROC glUniform1i;
+#endif
 
 	SDL_Window *window;
 	std::string readFile(const char *filePath);

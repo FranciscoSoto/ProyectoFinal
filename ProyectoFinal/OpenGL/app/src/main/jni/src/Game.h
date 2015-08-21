@@ -6,6 +6,7 @@
 #include "SDL_opengl.h"
 #include "OpegGLImplement.h"
 #else
+#endif
 
 
 class CGame
@@ -16,7 +17,7 @@ public:
 
 	CGame();
 	void Finalize();
-	
+
 	enum Estado{
 		ESTADO_INICIANDO,
 		ESTADO_MENU,
@@ -43,11 +44,11 @@ public:
 	void InicializandoStage();
 	void IniciarEnemigo();
 	void IniciarNave();
-	
+
 	Uint8 *keys;//Esta variable nos servira para ver si determinadas teclas estan o no pulsadas
 	SDL_Event event;//La variable event de tipo evento de SDL nos servira para motorizar
 	SDL_Surface *screenBuffer;
-	
+
 	///////// NUEVO
 	SDL_Window *window;
 	SDL_GLContext gContext;
@@ -64,9 +65,9 @@ public:
 	Nave *nave;
 	Nave *enemigoArreglo[MAXIMO_DE_ENEMIGOS];
 	Stage nivel[MAXIMO_DE_NIVELES];
-	
+
 	Estado estadoJuego;
-	
+
 	int tick;
 	int tiempoFrameInicial;
 	int tiempoFrameFinal;

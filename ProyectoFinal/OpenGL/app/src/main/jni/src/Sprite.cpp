@@ -1,9 +1,14 @@
 #include "Sprite.h"
 #include <stdio.h>
 #include <SDL.h>
+#ifndef _WIN32
+#include <android/asset_manager_jni.h>
+#include <jni.h>
+#ifdef __cplusplus
+extern "C"
 
 Sprite::Sprite(OpenGlImplement *openGlImplement){
-	rotate_x = 0.f; 
+	rotate_x = 0.f;
 	rotate_y = 0.f;
 	rotate_z = 0.f;
 	translate_x = 0.f;
@@ -54,8 +59,8 @@ void Sprite::CreateTextures(char* name){
 
 	Sprite::Sprite(OpenGlImplement* openGlImplement, char * nameResource, int x, int y)
 	{
-		char pathImg[40];  
-		char pathDat[40]; 
+		char pathImg[40];
+		char pathDat[40];
 
 		strcpy(pathImg, nameResource);
 		strcpy(pathDat, nameResource);
@@ -75,7 +80,7 @@ void Sprite::CreateTextures(char* name){
 		vertexTextures = new GLfloat[model.texels * 2];
 		vertexIndex = new GLuint[model.positions];
 		vertexNormals = new GLfloat[model.texels * 3];
-		
+
 		ExtractOBJdata(pathDat, model.positions);
 		CreateTextures(pathImg);
 
@@ -202,45 +207,51 @@ void Sprite::CreateTextures(char* name){
 	{
 		pasoActual++;
 	}
-
+#ifdef _WIN32
 	Sprite::Model Sprite::GetOBJinfo(std::string fp)
 	{
-		Model model = { 0 };
+        Model model = { 0 };
 
-		// Open OBJ file
-		std::ifstream inOBJ;
-		inOBJ.open(fp);
-		if (!inOBJ.good())
-		{
-			exit(1);
-		}
+        // Open OBJ file
+        std::ifstream inOBJ;
+        #ifdef _WIN32
+        inOBJ.open(fp);
+        #else
+        inOBJ.open(fp.c_str(), std::ios_base::in | std::ios_base::out);
+        #endif
 
-		// Read OBJ file
-		while (!inOBJ.eof())
-		{
-			std::string line;
-			getline(inOBJ, line);
-			std::string type = line.substr(0, 2);
+        if (!inOBJ.good())
+        {
+            exit(1);
+        }
 
-			if (type.compare("v ") == 0)
-				model.positions++;
-			else if (type.compare("vt") == 0)
-				model.texels++;
-			else if (type.compare("vn") == 0)
-				model.normals++;
-			else if (type.compare("f ") == 0)
-				model.faces++;
-			else if (type.compare("m ") == 0)
-				model.modules++;
-		}
+        // Read OBJ file
+        while (!inOBJ.eof())
+        {
+            std::string line;
+            getline(inOBJ, line);
+            std::string type = line.substr(0, 2);
 
-		model.vertices = model.faces * 3;
+            if (type.compare("v ") == 0)
+                model.positions++;
+            else if (type.compare("vt") == 0)
+                model.texels++;
+            else if (type.compare("vn") == 0)
+                model.normals++;
+            else if (type.compare("f ") == 0)
+                model.faces++;
+            else if (type.compare("m ") == 0)
+                model.modules++;
+        }
 
-		// Close OBJ file
-		inOBJ.close();
+        model.vertices = model.faces * 3;
 
-		return model;
-	}
+        // Close OBJ file
+        inOBJ.close();
+
+        return model;
+    }
+    #endif
 
 	void Sprite::ExtractOBJdata(std::string fp, GLuint indexes)
 	{
@@ -252,9 +263,21 @@ void Sprite::CreateTextures(char* name){
 		int in = 0;
 		int m = 0;
 
+		AAssetManager *assets = get_asset_manager();
+		SDL_Log("Aprobado");
+		// You should check the return value, here we assume logo.png is found
+         // SDL_RWops *rw = AAsset_RWFromAsset(assets,(const char *)fp.c_ );
+
+          // Do whatever you want with the rwops
+          //GfxSurface *i = SDL_LoadBMP_RW(rw, 1);
+
 		// Open OBJ file
 		std::ifstream inOBJ;
+		#ifdef _WIN32
 		inOBJ.open(fp);
+		#else
+		inOBJ.open(fp.c_str(), std::ios_base::in | std::ios_base::out);
+		#endif
 		if (!inOBJ.good())
 		{
 			exit(1);
@@ -295,7 +318,7 @@ void Sprite::CreateTextures(char* name){
 				strtok(l, " ");
 				for (int i = 0; i < 2; i++)
 					vertexTextures[(t * 2) + i] = atof(strtok(NULL, " "));
-					
+
 				// Wrap up
 				delete[] l;
 				t++;
@@ -311,7 +334,7 @@ void Sprite::CreateTextures(char* name){
 				strtok(l, " ");
 				for (int i = 0; i < indexes; i++)
 					vertexIndex[(in * 1) + i] = atoi(strtok(NULL, " "));
-				
+
 				// Wrap up
 				delete[] l;
 				in++;
@@ -319,7 +342,7 @@ void Sprite::CreateTextures(char* name){
 			// Modules
 			else if (type.compare("m ") == 0)
 			{
-				
+
 			}
 			// Normals
 			else if (type.compare("vn") == 0)
@@ -335,3 +358,5 @@ void Sprite::CreateTextures(char* name){
 		// Close OBJ file
 		inOBJ.close();
 	}
+    #endif
+#endif

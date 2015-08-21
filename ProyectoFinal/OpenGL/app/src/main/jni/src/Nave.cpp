@@ -124,7 +124,7 @@ bool Nave::Colision(Nave * nave, TipoColision tipoColision){
 	int x, y, w, h;
 	
 	switch (tipoColision){
-	case TipoColision::NAVE:
+	case NAVE:
 		x = GetNaveObjeto()->GetX();
 		y = GetNaveObjeto()->GetY();
 		w = GetNaveObjeto()->GetW();
@@ -139,7 +139,7 @@ bool Nave::Colision(Nave * nave, TipoColision tipoColision){
 			return true;
 
 		break;
-	case TipoColision::BALA:
+	case BALA:
 		x = nave->GetNaveObjeto()->GetX();
 		y = nave->GetNaveObjeto()->GetY();
 		w = nave->GetNaveObjeto()->GetW();

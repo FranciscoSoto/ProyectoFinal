@@ -103,19 +103,19 @@ bool CGame::Start()
 		keys = (Uint8*)SDL_GetKeyboardState(NULL);
 		//Maquina de estados
 		switch (estadoJuego){
-		case Estado::ESTADO_INICIANDO:
+		case ESTADO_INICIANDO:
 			IniciandoVideo();
 			openGlImplement.InitGL();
 			openGlImplement.InitShaders();
 			CargandoObjetos();
 			InicializandoStage();
-			estadoJuego = Estado::ESTADO_MENU;
+			estadoJuego = ESTADO_MENU;
 			break;
-		case Estado::ESTADO_MENU:
+		case ESTADO_MENU:
 			MenuActualizar();
 			MenuPintar();
 			break;
-		case Estado::ESTADO_PRE_JUGANDO:
+		case ESTADO_PRE_JUGANDO:
 			nivelActual = CERO;
 			vida = UNO;
 			enemigosEliminados = CERO;
@@ -124,14 +124,14 @@ bool CGame::Start()
 			IniciarEnemigo();
 			IniciarNave();
 			break;
-		case Estado::ESTADO_JUGANDO:
+		case ESTADO_JUGANDO:
 			JugandoActualizar();
 			JugandoPintar();
 			break;
-		case Estado::ESTADO_FINALIZANDO:
+		case ESTADO_FINALIZANDO:
 			salirJuego = true;
 			break;
-		case Estado::ESTADO_TERMINANDO:
+		case ESTADO_TERMINANDO:
 			TerminadoPintar();
 			TerminadoActualizar();
 			break;
@@ -228,9 +228,9 @@ void CGame::JugandoPintar(){
 	for (int i = 0; i < nivel[nivelActual].Enemigos_VisiblesAlMismoTiempo; i++)
 	{
 		
-		if (enemigoArreglo[i]->Colision(nave, Nave::TipoColision::NAVE) || enemigoArreglo[i]->Colision(nave, Nave::TipoColision::BALA))//Nave vs Nave Enemigo
+		if (enemigoArreglo[i]->Colision(nave, Nave::NAVE) || enemigoArreglo[i]->Colision(nave, Nave::BALA))//Nave vs Nave Enemigo
 			vida--;
-		if (nave->Colision(enemigoArreglo[i], Nave::TipoColision::BALA)){//Nave vs Naves Bala
+		if (nave->Colision(enemigoArreglo[i], Nave::BALA)){//Nave vs Naves Bala
 			enemigoArreglo[i]->setVisible(false);
 			enemigosEliminados++;
 			if (enemigosEliminados < nivel[nivelActual].Enemigo_EliminarPorNivel)
@@ -293,7 +293,7 @@ void CGame::JugandoActualizar(){
 
 	if (keys[SDL_SCANCODE_ESCAPE])
 	{
-		estadoJuego = Estado::ESTADO_MENU;
+		estadoJuego = ESTADO_MENU;
 	}
 	if (keys[SDL_SCANCODE_SPACE])
 	{
@@ -326,12 +326,12 @@ void CGame::MenuActualizar()
 		{
 			if (opcionSeleccionada == MENU_OPCION1)
 			{
-				estadoJuego = Estado::ESTADO_PRE_JUGANDO;
+				estadoJuego = ESTADO_PRE_JUGANDO;
 			}
 
 			if (opcionSeleccionada == MENU_OPCION2)
 			{
-				estadoJuego = Estado::ESTADO_FINALIZANDO;
+				estadoJuego = ESTADO_FINALIZANDO;
 			}
 		}// SDL_SCANCODE__return 
 }
@@ -376,7 +376,7 @@ void CGame::TerminadoPintar(){
 
 void CGame::TerminadoActualizar(){
 	if (keys[SDL_SCANCODE_RETURN]){
-		estadoJuego = Estado::ESTADO_MENU;
+		estadoJuego = ESTADO_MENU;
 	}
 }
 
